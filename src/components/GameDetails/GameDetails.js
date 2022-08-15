@@ -4,6 +4,27 @@ import { getGameDetails } from "../../services/gameService";
 
 let GameDetails = (props) => {
     let { gameId } = useParams();
+    let [comment, setComment] = useState('');
+    let [error, setError] = useState(false);
+
+    let onChangeHandler = (e) => {
+        setComment(state => state = e.target.value)
+    }
+
+    let isEmptyHandler = (e) => {
+        if (e.target.value === '') {
+            setError(true)
+        } else {
+            setError(false)
+        }
+    }
+
+    let onSubmitHandler = (e) => {
+        e.preventDefault();
+        props.addCommentHandler(gameId, comment);
+        console.log(comment);
+    }
+
     // let [game, setGame] = useState({});
 
     // useEffect(() => {
@@ -13,9 +34,6 @@ let GameDetails = (props) => {
     //             setGame(state => state = game);
     //         })
     // }, [])
-
-    console.log(gameId);
-    console.log(props.games);
 
     let game = props.games.find(x => x._id === gameId);
 
@@ -36,16 +54,14 @@ let GameDetails = (props) => {
                 <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul>
-                        {/* list all comments for current game (If any) */}
-                        <li className="comment">
-                            <p>Content: I rate this one quite highly.</p>
-                        </li>
-                        <li className="comment">
-                            <p>Content: The best game.</p>
-                        </li>
+                        {!game.hasOwnProperty('comments')
+                            ? <p className="no-comment">No comments.</p>
+                            : game.comments.map(x =>
+                                <li className="comment">
+                                    <p>Content: {x}</p>
+                                </li>
+                            )}
                     </ul>
-                    {/* Display paragraph: If there are no games in the database */}
-                    <p className="no-comment">No comments.</p>
                 </div>
                 {/* Edit/Delete buttons ( Only for creator of this game ) */}
                 <div className="buttons">
@@ -62,8 +78,11 @@ let GameDetails = (props) => {
             {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
             <article className="create-comment">
                 <label>Add new comment:</label>
-                <form className="form">
-                    <textarea name="comment" placeholder="Comment......" defaultValue={""} />
+                <form className="form" onSubmit={onSubmitHandler}>
+                    <textarea name="comment" placeholder="Comment......" value={comment} onChange={onChangeHandler} onBlur={isEmptyHandler} />
+                    {error === true
+                        ? <p style={{ 'color': 'red' }}>Error</p>
+                        : null}
                     <input className="btn submit" type="submit" defaultValue="Add Comment" />
                 </form>
             </article>

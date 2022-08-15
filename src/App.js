@@ -31,6 +31,22 @@ function App() {
         navigate('/catalog')
     }
 
+    let addCommentHandler = (gameId, comment) => {
+        setGames(state => {
+            let game = state.find(x => x._id === gameId);
+            if (game.hasOwnProperty('comments')) {
+                game.comments.push(comment)
+            } else {
+                game.comments = [comment]
+            }
+            console.log(game.comments);
+            return [
+                ...state.filter(x => x._id !== gameId),
+                game
+            ]
+        })
+    }
+
     return (
         <div id="box">
             <Navigation />
@@ -42,7 +58,7 @@ function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path='/create' element={<Create addGameHandler={addGameHandler} />} />
                     <Route path='/catalog' element={<Catalog games={games} />} />
-                    <Route path='/catalog/:gameId' element={<GameDetails games={games} />} />
+                    <Route path='/catalog/:gameId' element={<GameDetails games={games} addCommentHandler={addCommentHandler} />} />
                 </Routes>
             </main>
         </div>
