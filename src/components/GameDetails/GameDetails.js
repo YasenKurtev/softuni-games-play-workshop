@@ -4,15 +4,20 @@ import { getGameDetails } from "../../services/gameService";
 
 let GameDetails = (props) => {
     let { gameId } = useParams();
-    let [game, setGame] = useState({});
+    // let [game, setGame] = useState({});
 
-    useEffect(() => {
-        getGameDetails(gameId)
-            .then(game => {
-                console.log(game);
-                setGame(state => state = game);
-            })
-    }, [])
+    // useEffect(() => {
+    //     getGameDetails(gameId)
+    //         .then(game => {
+    //             console.log(game);
+    //             setGame(state => state = game);
+    //         })
+    // }, [])
+
+    console.log(gameId);
+    console.log(props.games);
+
+    let game = props.games.find(x => x._id === gameId);
 
     return (
         <section id="game-details">
