@@ -1,6 +1,7 @@
 import CatalogItem from "./CatalogItem/CatalogItem"
 
 let Catalog = (props) => {
+    console.log(props.games);
     return (
         <section id="catalog-page">
             <h1>All Games</h1>

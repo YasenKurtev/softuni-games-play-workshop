@@ -8,6 +8,7 @@ import Home from './components/Home/Home';
 import Catalog from './components/Catalog/Catalog';
 import { useState, useEffect } from 'react';
 import { getAllGames } from './services/gameService';
+import GameDetails from './components/GameDetails/GameDetails';
 
 function App() {
     let [games, setGames] = useState([]);
@@ -16,7 +17,7 @@ function App() {
         getAllGames()
             .then(games => {
                 console.log(games);
-                setGames(state => state = games);
+                setGames(games);
             });
     }, [])
 
@@ -31,6 +32,7 @@ function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/catalog' element={<Catalog games={games} />} />
+                    <Route path='/catalog/:gameId' element={<GameDetails />} />
                 </Routes>
             </main>
         </div>

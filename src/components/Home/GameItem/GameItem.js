@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 let GameItem = (props) => {
     return (
         <div className="game">
@@ -13,9 +15,9 @@ let GameItem = (props) => {
                 <span>☆</span>
             </div>
             <div className="data-buttons">
-                <a href="#" className="btn details-btn">
+                <Link to={`/catalog/${props.game._id}`} className="btn details-btn">
                     Details
-                </a>
+                </Link>
             </div>
         </div>
     )
