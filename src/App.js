@@ -6,15 +6,27 @@ import Register from './components/Register/Register';
 import Create from './components/Create/Create';
 import Home from './components/Home/Home';
 import Catalog from './components/Catalog/Catalog';
+import { useState, useEffect } from 'react';
+import { getAllGames } from './services/gameService';
 
 function App() {
+    let [games, setGames] = useState([]);
+
+    useEffect(() => {
+        getAllGames()
+            .then(games => {
+                console.log(games);
+                setGames(state => state = games);
+            });
+    }, [])
+
     return (
         <div id="box">
             <Navigation />
 
             <main id="main-content">
                 <Routes>
-                    <Route path='/' element={<Home />} />
+                    <Route path='/' element={<Home games={games} />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/create' element={<Create />} />
