@@ -19,3 +19,12 @@ export let registerUser = (email, password) => {
         body: JSON.stringify({ email, password })
     })
 }
+
+export let logoutUser = (token) => {
+    return fetch(`${baseUrl}/users/logout`, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+}

@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import { getAllGames } from './services/gameService';
 import GameDetails from './components/GameDetails/GameDetails';
 import uniqid from 'uniqid';
+import Logout from './components/Logout/Logout';
 
 function App() {
     let [user, setUser] = useState({});
@@ -60,6 +61,7 @@ function App() {
                     <Route path='/' element={<Home games={games} />} />
                     <Route path='/login' element={<Login setUser={setUser} />} />
                     <Route path='/register' element={<Register setUser={setUser} />} />
+                    <Route path='/logout' element={<Logout user={user} setUser={setUser} />} />
                     <Route path='/create' element={<Create addGameHandler={addGameHandler} />} />
                     <Route path='/catalog' element={<Catalog games={games} />} />
                     <Route path='/catalog/:gameId' element={<GameDetails games={games} addCommentHandler={addCommentHandler} />} />
