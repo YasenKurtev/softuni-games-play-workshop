@@ -59,7 +59,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<Home games={games} />} />
                     <Route path='/login' element={<Login setUser={setUser} />} />
-                    <Route path='/register' element={<Register />} />
+                    <Route path='/register' element={<Register setUser={setUser} />} />
                     <Route path='/create' element={<Create addGameHandler={addGameHandler} />} />
                     <Route path='/catalog' element={<Catalog games={games} />} />
                     <Route path='/catalog/:gameId' element={<GameDetails games={games} addCommentHandler={addCommentHandler} />} />
