@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { logoutUser } from "../../services/userService"
+import { AuthContext } from "../contexts/authContext";
 
-let Logout = (props) => {
-    let navigate = useNavigate();
+let Logout = () => {
+    let { user, setUser, navigate } = useContext(AuthContext);
 
-    logoutUser(props.user.accessToken)
+    logoutUser(user.accessToken)
         .then(res => {
             localStorage.removeItem('user');
-            props.setUser(state => state = undefined);
+            setUser(state => state = undefined);
             navigate('/')
         })
 }

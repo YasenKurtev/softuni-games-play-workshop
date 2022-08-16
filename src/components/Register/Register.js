@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { registerUser } from "../../services/userService"
+import { AuthContext } from "../contexts/authContext"
 
 let Register = (props) => {
+    let { setUser, navigate } = useContext(AuthContext);
+
     let [inputs, setInputs] = useState({
         email: '',
         password: '',
@@ -43,7 +46,8 @@ let Register = (props) => {
             .then(user => {
                 localStorage.setItem('user', JSON.stringify(user));
                 let storedUser = localStorage.getItem('user');
-                props.setUser(state => state = JSON.parse(storedUser))
+                setUser(state => state = JSON.parse(storedUser));
+                navigate('/');
             })
     }
 

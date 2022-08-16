@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { loginUser } from '../../services/userService';
+import { AuthContext } from '../contexts/authContext';
 
-let Login = (props) => {
+let Login = () => {
+    let { setUser, navigate } = useContext(AuthContext);
 
     let [inputs, setInputs] = useState({
         email: '',
@@ -42,7 +44,8 @@ let Login = (props) => {
             .then(user => {
                 localStorage.setItem('user', JSON.stringify(user));
                 let storedUser = localStorage.getItem('user');
-                props.setUser(state => state = JSON.parse(storedUser))
+                setUser(state => state = JSON.parse(storedUser));
+                navigate('/');
             })
     }
 

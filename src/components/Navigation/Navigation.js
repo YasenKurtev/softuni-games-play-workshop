@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { AuthContext } from "../contexts/authContext"
 
 let Navigation = (props) => {
+    let { user } = useContext(AuthContext);
+
     return (
         <header>
             <h1>
@@ -10,7 +14,7 @@ let Navigation = (props) => {
             </h1>
             <nav>
                 <Link to="/catalog">All games</Link>
-                {props.user === undefined
+                {user === undefined
                     ? <div id="guest">
                         <Link to="/login">Login</Link>
                         <Link to="/register">Register</Link>
