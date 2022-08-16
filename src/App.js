@@ -12,6 +12,7 @@ import GameDetails from './components/GameDetails/GameDetails';
 import uniqid from 'uniqid';
 
 function App() {
+    let [user, setUser] = useState({});
     let [games, setGames] = useState([]);
     let navigate = useNavigate();
 
@@ -19,8 +20,11 @@ function App() {
         getAllGames()
             .then(games => {
                 console.log(games);
+                localStorage.setItem('games', JSON.stringify(games));
                 setGames(games);
             });
+        let storedUser = localStorage.getItem('user');
+        setUser(JSON.parse(storedUser));
     }, [])
 
     let addGameHandler = (gameData) => {
@@ -54,7 +58,7 @@ function App() {
             <main id="main-content">
                 <Routes>
                     <Route path='/' element={<Home games={games} />} />
-                    <Route path='/login' element={<Login />} />
+                    <Route path='/login' element={<Login setUser={setUser} />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/create' element={<Create addGameHandler={addGameHandler} />} />
                     <Route path='/catalog' element={<Catalog games={games} />} />
