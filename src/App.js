@@ -13,7 +13,7 @@ import uniqid from 'uniqid';
 import Logout from './components/Logout/Logout';
 
 function App() {
-    let [user, setUser] = useState({});
+    let [user, setUser] = useState(undefined);
     let [games, setGames] = useState([]);
     let navigate = useNavigate();
 
@@ -25,7 +25,7 @@ function App() {
                 setGames(games);
             });
         let storedUser = localStorage.getItem('user');
-        setUser(JSON.parse(storedUser));
+        storedUser === null ? setUser(state => state = undefined) : setUser(state => state = JSON.parse(storedUser));
     }, [])
 
     let addGameHandler = (gameData) => {
@@ -54,7 +54,7 @@ function App() {
 
     return (
         <div id="box">
-            <Navigation />
+            <Navigation user={user} />
 
             <main id="main-content">
                 <Routes>

@@ -7,7 +7,7 @@ let Logout = (props) => {
     logoutUser(props.user.accessToken)
         .then(res => {
             localStorage.removeItem('user');
-            props.setUser(state => state = {});
+            props.setUser(state => state = undefined);
             navigate('/')
         })
 }
