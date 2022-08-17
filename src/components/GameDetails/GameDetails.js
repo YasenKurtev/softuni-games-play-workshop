@@ -4,8 +4,16 @@ import { getGameDetails } from "../../services/gameService";
 
 let GameDetails = (props) => {
     let { gameId } = useParams();
+    let [game, setGame] = useState({})
     let [comment, setComment] = useState('');
     let [error, setError] = useState(false);
+
+    useEffect(() => {
+        getGameDetails(gameId)
+            .then(game => {
+                setGame(state => state = game);
+            })
+    }, [])
 
     let onChangeHandler = (e) => {
         setComment(state => state = e.target.value)
@@ -35,7 +43,7 @@ let GameDetails = (props) => {
     //         })
     // }, [])
 
-    let game = props.games.find(x => x._id === gameId);
+    // let game = props.games.find(x => x._id === gameId);
 
     return (
         <section id="game-details">

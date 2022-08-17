@@ -1,14 +1,23 @@
+import { useEffect, useState } from "react"
+import { getAllGames } from "../../services/gameService"
 import CatalogItem from "./CatalogItem/CatalogItem"
 
 let Catalog = (props) => {
+    let [games, setGames] = useState([]);
+
+    useEffect(() => {
+        getAllGames()
+            .then(games => {
+                setGames(state => state = games);
+            })
+    }, [])
+
     return (
         <section id="catalog-page">
             <h1>All Games</h1>
-            {props.games.length === 0
+            {games.length === 0
                 ? <h3 className="no-articles">No articles yet</h3>
-                : props.games.map(x => <CatalogItem key={x._id} game={x} />)}
-
-
+                : games.map(x => <CatalogItem key={x._id} game={x} />)}
         </section>
     )
 }
