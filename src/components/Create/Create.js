@@ -1,9 +1,11 @@
 import { useContext, useState } from "react"
-import { createGame } from "../../services/gameService"
+import { createGame, getAllGames } from "../../services/gameService"
 import { AuthContext } from "../contexts/authContext"
+import { GameContext } from "../contexts/gameContex";
 
 let Create = (props) => {
     let { navigate } = useContext(AuthContext);
+    let { setGames } = useContext(GameContext);
 
     let [inputs, setInputs] = useState({
         title: '',
@@ -47,8 +49,15 @@ let Create = (props) => {
     let onSubmitHandler = (e) => {
         e.preventDefault();
         createGame(inputs)
-            .then(navigate('/catalog'))
+            .then(() => {
+                getAllGames()
+                    .then(games => {
+                        setGames(state => state = games);
+                        navigate('/catalog');
+                    })
+            })
     }
+
 
     return (
         <section id="create-page" className="auth">

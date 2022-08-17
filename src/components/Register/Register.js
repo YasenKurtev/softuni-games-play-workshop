@@ -23,7 +23,6 @@ let Register = (props) => {
             ...state,
             [e.target.name]: e.target.value
         }))
-        console.log(inputs);
     }
 
     let isIncorrect = (e) => {

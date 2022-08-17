@@ -6,10 +6,10 @@ let Logout = () => {
     let { user, setUser, navigate } = useContext(AuthContext);
 
     logoutUser(user.accessToken)
-        .then(res => {
+        .then(() => {
             localStorage.removeItem('user');
             setUser(state => state = undefined);
-            navigate('/')
+            navigate('/');
         })
 }
 

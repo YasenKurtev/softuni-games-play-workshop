@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { getAllGames } from "../../services/gameService"
+import { GameContext } from "../contexts/gameContex"
 import CatalogItem from "./CatalogItem/CatalogItem"
 
 let Catalog = (props) => {
-    let [games, setGames] = useState([]);
-
-    useEffect(() => {
-        getAllGames()
-            .then(games => {
-                setGames(state => state = games);
-            })
-    }, [])
+    let { games } = useContext(GameContext);
 
     return (
         <section id="catalog-page">

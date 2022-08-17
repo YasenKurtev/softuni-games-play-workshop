@@ -1,12 +1,14 @@
 import { useLocation } from "react-router-dom";
 import { useContext, useState } from "react"
-import { editGame } from "../../services/gameService";
+import { editGame, getAllGames } from "../../services/gameService";
 import { AuthContext } from "../contexts/authContext";
+import { GameContext } from "../contexts/gameContex";
 
 let Edit = () => {
     let location = useLocation();
     let game = location.state;
     let { navigate } = useContext(AuthContext);
+    let { setGames } = useContext(GameContext);
 
     let [inputs, setInputs] = useState({
         title: game.title,
@@ -50,7 +52,14 @@ let Edit = () => {
     let onSubmitHandler = (e) => {
         e.preventDefault();
         editGame(game._id, inputs)
-            .then(navigate(`/catalog/${game._id}`))
+            .then(() => {
+                getAllGames()
+                    .then(games => {
+                        console.log(games);
+                        setGames(state => state = games);
+                        navigate(`/catalog/${game._id}`);
+                    })
+            })
     }
 
     return (
