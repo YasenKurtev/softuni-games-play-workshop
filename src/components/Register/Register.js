@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { Link } from "react-router-dom";
 import { registerUser } from "../../services/userService"
 import { AuthContext } from "../contexts/authContext"
 
@@ -72,10 +73,10 @@ let Register = (props) => {
                     {errors['confirm-password'] === true
                         ? <p style={{ 'color': 'red' }}>Please fill this field!</p>
                         : null}
-                    <input className="btn submit" type="submit" defaultValue="Register" />
+                    <input className="btn submit" type="submit" value="Register" />
                     <p className="field">
                         <span>
-                            If you already have profile click <a href="#">here</a>
+                            If you already have profile click <Link to="/login">here</Link>
                         </span>
                     </p>
                 </div>

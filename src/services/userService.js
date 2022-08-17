@@ -1,30 +1,15 @@
+import { get, post } from "./apiService";
+
 let baseUrl = 'http://localhost:3030';
 
 export let loginUser = (email, password) => {
-    return fetch(`${baseUrl}/users/login`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    })
+    return post(`${baseUrl}/users/login`, { email, password });
 }
 
 export let registerUser = (email, password) => {
-    return fetch(`${baseUrl}/users/register`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    })
+    return post(`${baseUrl}/users/register`, { email, password });
 }
 
-export let logoutUser = (token) => {
-    return fetch(`${baseUrl}/users/logout`, {
-        method: 'GET',
-        headers: {
-            'X-Authorization': token
-        }
-    })
+export let logoutUser = () => {
+    return get(`${baseUrl}/users/logout`);
 }

@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { loginUser } from '../../services/userService';
 import { AuthContext } from '../contexts/authContext';
 
@@ -65,10 +66,10 @@ let Login = () => {
                     {errors.password === true
                         ? <p style={{ 'color': 'red' }}>Please fill this field!</p>
                         : null}
-                    <input type="submit" className="btn submit" defaultValue="Login" />
+                    <input type="submit" className="btn submit" value="Login" />
                     <p className="field">
                         <span>
-                            If you don't have а profile click <a href="#">here</a>
+                            If you don't have а profile click <Link to="/register">here</Link>
                         </span>
                     </p>
                 </div>

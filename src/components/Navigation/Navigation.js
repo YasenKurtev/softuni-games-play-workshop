@@ -13,6 +13,9 @@ let Navigation = (props) => {
                 </Link>
             </h1>
             <nav>
+                {user === undefined
+                    ? <span>Welcome, guest user</span>
+                    : <span>Welcome, {user.email}</span>}
                 <Link to="/catalog">All games</Link>
                 {user === undefined
                     ? <div id="guest">
