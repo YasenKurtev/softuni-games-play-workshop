@@ -1,4 +1,4 @@
-import { get } from "./apiService";
+import { get, post, put } from "./apiService";
 
 let baseUrl = 'http://localhost:3030';
 
@@ -9,5 +9,15 @@ export let getAllGames = () => {
 
 export let getGameDetails = (id) => {
     return get(`${baseUrl}/data/games/${id}`)
+        .then(res => res.json())
+}
+
+export let createGame = (data) => {
+    return post(`${baseUrl}/data/games`, data)
+        .then(res => res.json())
+}
+
+export let editGame = (id, data) => {
+    return put(`${baseUrl}/data/games/${id}`, data)
         .then(res => res.json())
 }

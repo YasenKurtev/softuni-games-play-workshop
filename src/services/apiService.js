@@ -10,8 +10,8 @@ let requester = (url, method, data) => {
 
     let user = localStorage.getItem('user');
 
-    if (user) {
-        options.headers['X-Authorization'] = user.accessToken;
+    if (user !== null) {
+        options.headers['X-Authorization'] = JSON.parse(user).accessToken;
     }
 
     if (data) {

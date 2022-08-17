@@ -1,16 +1,19 @@
+import { useLocation } from "react-router-dom";
 import { useContext, useState } from "react"
-import { createGame } from "../../services/gameService"
-import { AuthContext } from "../contexts/authContext"
+import { editGame } from "../../services/gameService";
+import { AuthContext } from "../contexts/authContext";
 
-let Create = (props) => {
+let Edit = () => {
+    let location = useLocation();
+    let game = location.state;
     let { navigate } = useContext(AuthContext);
 
     let [inputs, setInputs] = useState({
-        title: '',
-        category: '',
-        maxLevel: '',
-        imageUrl: '',
-        summary: ''
+        title: game.title,
+        category: game.category,
+        maxLevel: game.maxLevel,
+        imageUrl: game.imageUrl,
+        summary: game.summary
     })
 
     let [errors, setErrors] = useState({
@@ -46,32 +49,32 @@ let Create = (props) => {
 
     let onSubmitHandler = (e) => {
         e.preventDefault();
-        createGame(inputs)
-            .then(navigate('/catalog'))
+        editGame(game._id, inputs)
+            .then(navigate(`/catalog/${game._id}`))
     }
 
     return (
-        <section id="create-page" className="auth">
-            <form id="create" onSubmit={onSubmitHandler}>
+        <section id="edit-page" className="auth">
+            <form id="edit" onSubmit={onSubmitHandler}>
                 <div className="container">
-                    <h1>Create Game</h1>
+                    <h1>Edit Game</h1>
                     <label htmlFor="leg-title">Legendary title:</label>
-                    <input type="text" id="title" name="title" placeholder="Enter game title..." value={inputs.title} onChange={onChangeHandler} onBlur={isEmptyHandler} />
+                    <input type="text" id="title" name="title" value={inputs.title} onChange={onChangeHandler} onBlur={isEmptyHandler} />
                     {errors.title === true
                         ? <p style={{ "color": "red" }}>This field is empty!!!</p>
                         : null}
                     <label htmlFor="category">Category:</label>
-                    <input type="text" id="category" name="category" placeholder="Enter game category..." value={inputs.category} onChange={onChangeHandler} onBlur={isEmptyHandler} />
+                    <input type="text" id="category" name="category" value={inputs.category} onChange={onChangeHandler} onBlur={isEmptyHandler} />
                     {errors.category === true
                         ? <p style={{ "color": "red" }}>This field is empty!!!</p>
                         : null}
                     <label htmlFor="levels">MaxLevel:</label>
-                    <input type="number" id="maxLevel" name="maxLevel" min={1} placeholder={1} value={inputs.maxLevel} onChange={onChangeHandler} onBlur={isEmptyHandler} />
+                    <input type="number" id="maxLevel" name="maxLevel" min={1} value={inputs.maxLevel} onChange={onChangeHandler} onBlur={isEmptyHandler} />
                     {errors.maxLevel === true
                         ? <p style={{ "color": "red" }}>This field is empty!!!</p>
                         : null}
                     <label htmlFor="game-img">Image:</label>
-                    <input type="text" id="imageUrl" name="imageUrl" placeholder="Upload a photo..." value={inputs.imageUrl} onChange={onChangeHandler} onBlur={isEmptyHandler} />
+                    <input type="text" id="imageUrl" name="imageUrl" value={inputs.imageUrl} onChange={onChangeHandler} onBlur={isEmptyHandler} />
                     {errors.imageUrl === true
                         ? <p style={{ "color": "red" }}>This field is empty!!!</p>
                         : null}
@@ -80,11 +83,11 @@ let Create = (props) => {
                     {errors.summary === true
                         ? <p style={{ "color": "red" }}>This field is empty!!!</p>
                         : null}
-                    <input className="btn submit" type="submit" defaultValue="Create Game" disabled={isFormValid} />
+                    <input className="btn submit" type="submit" defaultValue="Edit Game" disabled={isFormValid} />
                 </div>
             </form>
-        </section >
+        </section>
     )
 }
 
-export default Create
+export default Edit

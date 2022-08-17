@@ -12,6 +12,8 @@ import { getAllGames } from './services/gameService';
 import GameDetails from './components/GameDetails/GameDetails';
 import uniqid from 'uniqid';
 import { AuthContext } from './components/contexts/authContext';
+import Edit from './components/Edit/Edit';
+import Delete from './components/Delete/Delete';
 
 function App() {
     let [user, setUser] = useState(undefined);
@@ -67,6 +69,8 @@ function App() {
                         <Route path='/create' element={<Create addGameHandler={addGameHandler} />} />
                         <Route path='/catalog' element={<Catalog games={games} />} />
                         <Route path='/catalog/:gameId' element={<GameDetails games={games} addCommentHandler={addCommentHandler} />} />
+                        <Route path='/edit/:gameId' element={<Edit />} />
+                        <Route path='/delete/:gameId' element={<Delete />} />
                     </Routes>
 
                 </main>
