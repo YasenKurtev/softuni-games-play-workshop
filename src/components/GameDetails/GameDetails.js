@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
-import { getGameDetails } from "../../services/gameService";
+import { addComment, getComments, getGameDetails } from "../../services/gameService";
 import { AuthContext } from "../contexts/authContext";
 
 let GameDetails = (props) => {
     let { user } = useContext(AuthContext);
     let { gameId } = useParams();
     let [game, setGame] = useState({})
-    let [comment, setComment] = useState('');
+    let [comments, setComments] = useState([]);
+    let [input, setInput] = useState('');
     let [error, setError] = useState(false);
 
     useEffect(() => {
@@ -17,34 +18,31 @@ let GameDetails = (props) => {
             })
     }, [])
 
+    useEffect(() => {
+        getComments(gameId)
+            .then(comments => {
+                setComments(state => state = comments)
+            })
+    }, [])
+
     let onChangeHandler = (e) => {
-        setComment(state => state = e.target.value)
+        setInput(state => state = e.target.value)
     }
 
     let isEmptyHandler = (e) => {
-        if (e.target.value === '') {
-            setError(true)
-        } else {
-            setError(false)
-        }
+        e.target.value === '' ? setError(state => state = true) : setError(state => state = false)
     }
 
     let onSubmitHandler = (e) => {
         e.preventDefault();
-        props.addCommentHandler(gameId, comment);
+        addComment({ gameId: gameId, comment: input })
+            .then(comment => setComments(state => ([
+                ...state,
+                comment
+            ])))
     }
 
-    // let [game, setGame] = useState({});
-
-    // useEffect(() => {
-    //     getGameDetails(gameId)
-    //         .then(game => {
-    //             console.log(game);
-    //             setGame(state => state = game);
-    //         })
-    // }, [])
-
-    // let game = props.games.find(x => x._id === gameId);
+    let isFormValid = error;
 
     return (
         <section id="game-details">
@@ -63,11 +61,11 @@ let GameDetails = (props) => {
                 <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul>
-                        {!game.hasOwnProperty('comments')
+                        {comments.length === 0
                             ? <p className="no-comment">No comments.</p>
-                            : game.comments.map(x =>
-                                <li className="comment">
-                                    <p>Content: {x}</p>
+                            : comments.map(x =>
+                                <li key={x._id} className="comment">
+                                    <p>Content: {x.comment}</p>
                                 </li>
                             )}
                     </ul>
@@ -91,16 +89,19 @@ let GameDetails = (props) => {
 
             {/* Bonus */}
             {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form" onSubmit={onSubmitHandler}>
-                    <textarea name="comment" placeholder="Comment......" value={comment} onChange={onChangeHandler} onBlur={isEmptyHandler} />
-                    {error === true
-                        ? <p style={{ 'color': 'red' }}>Error</p>
-                        : null}
-                    <input className="btn submit" type="submit" defaultValue="Add Comment" />
-                </form>
-            </article>
+            {user !== undefined && user._id !== game._ownerId
+                ? <article className="create-comment">
+                    <label>Add new comment:</label>
+                    <form className="form" onSubmit={onSubmitHandler}>
+                        <textarea name="comment" placeholder="Comment......" value={input} onChange={onChangeHandler} onBlur={isEmptyHandler} />
+                        {error === true
+                            ? <p style={{ 'color': 'red' }}>This field is empty!!!</p>
+                            : null}
+                        <input className="btn submit" type="submit" defaultValue="Add Comment" disabled={isFormValid} />
+                    </form>
+                </article>
+                : null}
+
         </section>
     )
 }

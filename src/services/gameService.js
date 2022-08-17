@@ -25,3 +25,13 @@ export let editGame = (id, data) => {
 export let deleteGame = (id) => {
     return del(`${baseUrl}/data/games/${id}`)
 }
+
+export let getComments = (id) => {
+    return get(`${baseUrl}/data/comments?where=gameId%3D%22${id}%22`)
+        .then(res => res.json())
+}
+
+export let addComment = (data) => {
+    return post(`${baseUrl}/data/comments`, data)
+        .then(res => res.json())
+}

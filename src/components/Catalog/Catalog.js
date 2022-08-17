@@ -8,7 +8,6 @@ let Catalog = (props) => {
     useEffect(() => {
         getAllGames()
             .then(games => {
-                console.log(games);
                 setGames(state => state = games);
             })
     }, [])
