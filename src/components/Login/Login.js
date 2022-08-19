@@ -44,9 +44,8 @@ let Login = () => {
         loginUser(inputs.email, inputs.password)
             .then(res => res.json())
             .then(user => {
+                setUser(state => state = user);
                 localStorage.setItem('user', JSON.stringify(user));
-                let storedUser = localStorage.getItem('user');
-                setUser(state => state = JSON.parse(storedUser));
                 navigate('/');
             })
     }

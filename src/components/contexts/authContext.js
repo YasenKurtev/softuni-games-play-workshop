@@ -3,11 +3,10 @@ import { createContext, useEffect, useState } from "react";
 export let AuthContext = createContext();
 
 export let AuthProvider = ({ children }) => {
-    let [user, setUser] = useState(undefined);
+    let [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
     useEffect(() => {
-        let storedUser = localStorage.getItem('user');
-        storedUser === null ? setUser(state => state = undefined) : setUser(state => state = JSON.parse(storedUser));
+        setUser(state => state = JSON.parse(localStorage.getItem('user')));
     }, [])
 
     return (

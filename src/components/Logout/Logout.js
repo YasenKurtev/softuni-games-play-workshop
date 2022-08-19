@@ -10,7 +10,7 @@ let Logout = () => {
     logoutUser(user.accessToken)
         .then(() => {
             localStorage.removeItem('user');
-            setUser(state => state = undefined);
+            setUser(state => state = null);
             navigate('/');
         })
 }

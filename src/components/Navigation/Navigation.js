@@ -13,11 +13,11 @@ let Navigation = () => {
                 </Link>
             </h1>
             <nav>
-                {user === undefined
+                {user === null
                     ? <span>Welcome, guest user</span>
                     : <span>Welcome, {user.email}</span>}
                 <Link to="/catalog">All games</Link>
-                {user === undefined
+                {user === null
                     ? <div id="guest">
                         <Link to="/login">Login</Link>
                         <Link to="/register">Register</Link>

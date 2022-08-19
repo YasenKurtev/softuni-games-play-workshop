@@ -13,6 +13,7 @@ import Delete from './components/Delete/Delete';
 import { AuthProvider } from '../src/components/contexts/authContext';
 import { GameProvider } from '../src/components/contexts/gameContex';
 import PrivateRoute from './components/common/PrivateRoute';
+import GameOwner from './components/common/GameOwner';
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
                             <Route element={<PrivateRoute />}>
                                 <Route path='/logout' element={<Logout />} />
                                 <Route path='/create' element={<Create />} />
+                            </Route>
+                            <Route element={<GameOwner />}>
                                 <Route path='/edit/:gameId' element={<Edit />} />
                                 <Route path='/delete/:gameId' element={<Delete />} />
                             </Route>
@@ -42,7 +45,7 @@ function App() {
                 </GameProvider>
 
             </div >
-        </AuthProvider>
+        </AuthProvider >
     )
 }
 
