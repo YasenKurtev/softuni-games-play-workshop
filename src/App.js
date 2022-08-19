@@ -10,8 +10,9 @@ import Create from './components/Create/Create';
 import GameDetails from './components/GameDetails/GameDetails';
 import Edit from './components/Edit/Edit';
 import Delete from './components/Delete/Delete';
-import { AuthProvider } from './components/contexts/authContext';
-import { GameProvider } from './components/contexts/gameContex';
+import { AuthProvider } from '../src/components/contexts/authContext';
+import { GameProvider } from '../src/components/contexts/gameContex';
+import PrivateRoute from './components/common/PrivateRoute';
 
 function App() {
 
@@ -27,12 +28,15 @@ function App() {
                             <Route path='/' element={<Home />} />
                             <Route path='/login' element={<Login />} />
                             <Route path='/register' element={<Register />} />
-                            <Route path='/logout' element={<Logout />} />
-                            <Route path='/create' element={<Create />} />
                             <Route path='/catalog' element={<Catalog />} />
+                            <Route element={<PrivateRoute />}>
+                                <Route path='/logout' element={<Logout />} />
+                                <Route path='/create' element={<Create />} />
+                                <Route path='/edit/:gameId' element={<Edit />} />
+                                <Route path='/delete/:gameId' element={<Delete />} />
+                            </Route>
                             <Route path='/catalog/:gameId' element={<GameDetails />} />
-                            <Route path='/edit/:gameId' element={<Edit />} />
-                            <Route path='/delete/:gameId' element={<Delete />} />
+
                         </Routes>
                     </main>
                 </GameProvider>
