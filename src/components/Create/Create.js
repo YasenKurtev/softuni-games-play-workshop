@@ -1,11 +1,9 @@
 import { useContext, useState } from "react"
 import { createGame, getAllGames } from "../../services/gameService"
-import { AuthContext } from "../contexts/authContext"
 import { GameContext } from "../contexts/gameContex";
 
-let Create = (props) => {
-    let { navigate } = useContext(AuthContext);
-    let { setGames } = useContext(GameContext);
+let Create = () => {
+    let { setGames, navigate } = useContext(GameContext);
 
     let [inputs, setInputs] = useState({
         title: '',
@@ -57,7 +55,6 @@ let Create = (props) => {
                     })
             })
     }
-
 
     return (
         <section id="create-page" className="auth">

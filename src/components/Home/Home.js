@@ -1,10 +1,8 @@
 import GameItem from "./GameItem/GameItem"
-import { useState, useEffect, useContext } from 'react';
-import { getAllGames } from "../../services/gameService";
+import { useContext } from 'react';
 import { GameContext } from "../contexts/gameContex";
 
-
-let Home = (props) => {
+let Home = () => {
     let { games } = useContext(GameContext);
 
     return (

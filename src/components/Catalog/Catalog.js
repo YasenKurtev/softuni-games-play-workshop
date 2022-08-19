@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react"
-import { getAllGames } from "../../services/gameService"
+import { useContext } from "react"
 import { GameContext } from "../contexts/gameContex"
 import CatalogItem from "./CatalogItem/CatalogItem"
 
-let Catalog = (props) => {
+let Catalog = () => {
     let { games } = useContext(GameContext);
 
     return (

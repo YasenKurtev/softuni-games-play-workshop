@@ -2,9 +2,11 @@ import { useContext, useState } from "react"
 import { Link } from "react-router-dom";
 import { registerUser } from "../../services/userService"
 import { AuthContext } from "../contexts/authContext"
+import { GameContext } from "../contexts/gameContex";
 
-let Register = (props) => {
-    let { setUser, navigate } = useContext(AuthContext);
+let Register = () => {
+    let { setUser } = useContext(AuthContext);
+    let { navigate } = useContext(GameContext);
 
     let [inputs, setInputs] = useState({
         email: '',

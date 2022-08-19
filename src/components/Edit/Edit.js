@@ -1,14 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { useContext, useState } from "react"
 import { editGame, getAllGames } from "../../services/gameService";
-import { AuthContext } from "../contexts/authContext";
 import { GameContext } from "../contexts/gameContex";
 
 let Edit = () => {
     let location = useLocation();
     let game = location.state;
-    let { navigate } = useContext(AuthContext);
-    let { setGames } = useContext(GameContext);
+    let { setGames, navigate } = useContext(GameContext);
 
     let [inputs, setInputs] = useState({
         title: game.title,
