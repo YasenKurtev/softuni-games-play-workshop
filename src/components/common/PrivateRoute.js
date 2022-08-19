@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/authContext";
 let PrivateRoute = () => {
     let { user } = useContext(AuthContext);
 
-    if (user === undefined) {
+    if (user === null) {
         return <Navigate to="/login" replace />
     }
 
